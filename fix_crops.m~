@@ -1,0 +1,36 @@
+BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae/invasive_plants_seed_factsheet_amaranthus_tubriculatus_04cnsh_1476383162006_eng.jpg');
+I = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae/invasive_plants_seed_factsheet_amaranthus_tubriculatus_04cnsh_1476383162006_eng.jpg');
+figure, imshow(BW);
+% elemento strutturante
+se = strel('disk', 1);
+
+% Preprocessing: opening (erosione + dilatazione)
+BW2 = imopen(BW, se);
+BW2 = imfill(BW2, 'holes');
+BW2 = imbinarize(BW2);
+
+% regionprops per ottenere i valori d'interesse
+% dentro stats, trovi tutti i bounding box estrapolati dall'immagine
+% che puoi poi usare con imcrop, inserendo come parametro proprio quel
+% rettangolo con 4 valori
+stats = regionprops(BW2);
+
+figure, imshow(BW2);
+
+%-------------------------------------
+I2 = imcrop(I, stats(1).BoundingBox);
+I3 = imcrop(I, stats(2).BoundingBox);
+I4 = imcrop(I, stats(3).BoundingBox);
+
+figure, imshow(I2);
+figure, imshow(I3);
+figure, imshow(I4);
+
+
+n = size(stats);
+
+for i=1:size(stats)
+    result = imcrop(I, stats(i).BoundingBox)
+
+end
+
