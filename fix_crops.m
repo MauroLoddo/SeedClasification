@@ -1,5 +1,9 @@
-BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae/invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
-I = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae/invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
+clc;
+clear all;
+close all;
+
+BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/1invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
+I = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae2/1invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
 figure, imshow(BW);
 % elemento strutturante
 se = strel('disk', 1);
@@ -15,12 +19,33 @@ BW2 = imbinarize(BW2);
 % rettangolo con 4 valori
 stats = regionprops(BW2);
 
+
 figure, imshow(BW2);
 
 %-------------------------------------
 
+pixel = I(1, 1); %valore primo pixel
+
 for i=1:size(stats)
+    
     result = imcrop(I, stats(i).BoundingBox);
     figure, imshow(result);
 end
 
+%-------------------------------------
+
+result = imcrop(I, stats(1).BoundingBox);
+    %result(~stats(i).BoundingBox) = 0; %set things not in the mask to zero
+    figure, imshow(result);
+
+    pixelList = regionprops(BW2, 'PixelList');
+for j=1:size(pixelList(2).PixelList)
+    
+    pixelList(2).PixelList(j,1); %coordinata x
+    pixelList(2).PixelList(j,2); %coordinata y
+    
+    result(pixelList(2).PixelList(j,2), pixelList(2).PixelList(j,1),1) = pixel;
+    result(pixelList(2).PixelList(j,2), pixelList(2).PixelList(j,1),2) = pixel;
+    result(pixelList(2).PixelList(j,2), pixelList(2).PixelList(j,1),3) = pixel;
+end
+    figure, imshow(result);

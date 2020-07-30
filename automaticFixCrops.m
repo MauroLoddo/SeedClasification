@@ -9,10 +9,11 @@ originalPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians f
 bwFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae/*.jpg'); %totale immagini in bianco e nero
 bwPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae/'; %path cartella immagini bw
 for i = 1:N
-    
     originalImageName = originalFiles(i).name;          %nome dell'immagine
     originalString = strcat(originalPath, originalImageName);   %path completo dell'immagine
     I = imread(originalString);                 %immagine da analizzare
+    
+    
     
     bwImageName = bwFiles(i).name;          %nome dell'immagine
     bwString = strcat(bwPath, bwImageName);   %path completo dell'immagine
