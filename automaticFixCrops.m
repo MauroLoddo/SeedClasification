@@ -1,13 +1,14 @@
+%Prende i semi rgb e li ritaglia, da usare prima di thresholdingConValoreSfondo
 clc;
 clear all;
 close all;
 
-originalFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae/*.jpg'); %totale delle immagini da analizzare
+originalFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae/*.jpg'); %totale delle immagini da analizzare
 N = length(originalFiles); %Numero immagini
-originalPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae/'; %path cartella immagini rgb
+originalPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae/'; %path cartella immagini rgb
 
-bwFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae/*.jpg'); %totale immagini in bianco e nero
-bwPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae/'; %path cartella immagini bw
+bwFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae/*.jpg'); %totale immagini in bianco e nero
+bwPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae/'; %path cartella immagini bw
 for i = 1:N
     originalImageName = originalFiles(i).name;          %nome dell'immagine
     originalString = strcat(originalPath, originalImageName);   %path completo dell'immagine
@@ -38,11 +39,11 @@ for i = 1:N
 
     for j=1:size(stats)
         result = imcrop(I, stats(j).BoundingBox);
-        %figure, imshow(result);
-        newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae2';    %Nuova cartella di destinazione
+        figure, imshow(result);
+        newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae2';    %Nuova cartella di destinazione
         imageName = strcat(num2str(j),originalImageName);
         fullFileName = fullfile(newImageFolder, imageName);                                            %Nuovo path completo di nome
-        imwrite(result, fullFileName);                                                                    %Immagine scritta nella nuova cartella
+        %imwrite(result, fullFileName);                                                                    %Immagine scritta nella nuova cartella
     end
     
     

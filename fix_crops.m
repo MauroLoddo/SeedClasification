@@ -2,7 +2,7 @@ clc;
 clear all;
 close all;
 
-BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/1invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
+BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/31invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
 I = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae2/1invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
 figure, imshow(BW);
 % elemento strutturante
@@ -35,7 +35,7 @@ end
 %-------------------------------------
 
 result = imcrop(I, stats(1).BoundingBox);
-    %result(~stats(i).BoundingBox) = 0; %set things not in the mask to zero
+    
     figure, imshow(result);
 
     pixelList = regionprops(BW2, 'PixelList');
