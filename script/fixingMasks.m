@@ -1,15 +1,18 @@
+%Ultimo passaggio per la creazione delle maschere
+
 clc;
 clear all;
 close all;
 
-files = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/*.jpg'); %totale delle immagini da analizzare
+files = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae2/*.jpg'); %totale delle immagini da analizzare
 N = length(files); %Numero immagini
-path = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/'; %path cartella
+path = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae2/'; %path cartella
 
 for l = 1:N
     imageName = files(l).name;          %nome dell'immagine
     string = strcat(path, imageName);   %path completo dell'immagine
     BW = imread(string);                 %immagine da analizzare
+    %figure, imshow(BW);
     
     %BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/72invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
     % elemento strutturante
@@ -50,8 +53,8 @@ for l = 1:N
             end
         end
 
-    newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae3';    %Nuova cartella di destinazione
-    imageName=strcat(num2str(l), imageName);
+    newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae3';    %Nuova cartella di destinazione
+    %imageName=strcat(num2str(l), imageName);
     fullFileName = fullfile(newImageFolder, imageName);             %Nuovo path completo di nome
     imwrite(result, fullFileName);            %Immagine scritta nella nuova cartella
     %figure, imshow(result);

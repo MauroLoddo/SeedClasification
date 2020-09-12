@@ -1,0 +1,26 @@
+clc;
+clear all;
+close all;
+
+filesRGB = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae2/*.jpg'); %totale delle immagini da analizzare
+N = length(filesRGB); %Numero immagini
+pathRGB = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae2/'; %path cartella
+
+filesBinary = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae3/*.jpg'); %totale delle immagini da analizzare
+pathBinary = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae3/'; %path cartella
+
+%for l = 1:N
+
+imageNameRGB = filesRGB(l).name;          %nome dell'immagine
+stringRGB = strcat(pathRGB, imageNameRGB);   %path completo dell'immagine
+RGB = imread(stringRGB);                 %immagine da analizzare
+
+imageNameBinary = filesBinary(l).name;          %nome dell'immagine
+stringBinary = strcat(pathBinary, imageNameBinary);   %path completo dell'immagine
+mask = imread(stringBinary);                 %immagine da analizzare
+
+
+maskedImage = RGB.*mask;
+figure, imshow(maskedImage);
+
+%

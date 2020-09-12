@@ -3,23 +3,26 @@ clc;
 clear all;
 close all;
 
-originalFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae/*.jpg'); %totale delle immagini da analizzare
+originalFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Asteraceae/*.jpg'); %totale delle immagini da analizzare
 N = length(originalFiles); %Numero immagini
-originalPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae/'; %path cartella immagini rgb
+originalPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Asteraceae/'; %path cartella immagini rgb
 
-bwFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae/*.jpg'); %totale immagini in bianco e nero
-bwPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae/'; %path cartella immagini bw
+bwFiles = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAsteraceae/*.jpg'); %totale immagini in bianco e nero
+bwPath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAsteraceae/'; %path cartella immagini bw
 for i = 1:N
+
     originalImageName = originalFiles(i).name;          %nome dell'immagine
     originalString = strcat(originalPath, originalImageName);   %path completo dell'immagine
     I = imread(originalString);                 %immagine da analizzare
     
+    %figure, imshow(I);
     
     
     bwImageName = bwFiles(i).name;          %nome dell'immagine
     bwString = strcat(bwPath, bwImageName);   %path completo dell'immagine
     BW = imread(bwString);                 %immagine da analizzare
     
+    %figure, imshow(BW);
     % elemento strutturante
     se = strel('disk', 1);
 
@@ -27,6 +30,7 @@ for i = 1:N
     BW2 = imopen(BW, se);
     BW2 = imfill(BW2, 'holes');
     BW2 = imbinarize(BW2);
+    %figure, imshow(BW2);
 
     % regionprops per ottenere i valori d'interesse
     % dentro stats, trovi tutti i bounding box estrapolati dall'immagine
@@ -36,14 +40,14 @@ for i = 1:N
 
 
     %-------------------------------------
-
+%Vengono divisi i semi in base ai bounding box che vengono trovati
     for j=1:size(stats)
         result = imcrop(I, stats(j).BoundingBox);
-        figure, imshow(result);
-        newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae2';    %Nuova cartella di destinazione
+        %figure, imshow(result);
+        newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Asteraceae2';    %Nuova cartella di destinazione
         imageName = strcat(num2str(j),originalImageName);
         fullFileName = fullfile(newImageFolder, imageName);                                            %Nuovo path completo di nome
-        %imwrite(result, fullFileName);                                                                    %Immagine scritta nella nuova cartella
+        imwrite(result, fullFileName);                                                                    %Immagine scritta nella nuova cartella
     end
     
     
