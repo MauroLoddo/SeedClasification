@@ -2,7 +2,7 @@ clc;
 clear all;
 close all;
 
-BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/31invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
+BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/1invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
 I = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Amaranthaceae2/1invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
 figure, imshow(BW);
 % elemento strutturante
@@ -22,10 +22,37 @@ stats = regionprops(BW2);
 
 figure, imshow(BW2);
 
-%-------------------------------------
-
 pixel = I(1, 1); %valore primo pixel
 
+    %---------------------------
+    area = 0;
+    index = 0;
+    for i=1:size(stats)
+        if stats(i).Area > area
+            area = stats(i).Area; %Salvo l'area maggiore corrispondente al seme principale
+            index = i;            %Salvo il suo indice
+        end
+    end
+
+        result = imcrop(I, stats(index).BoundingBox);
+        figure, imshow(result);
+        pixelList = regionprops(BW2, 'PixelList');
+
+
+    for j=1:size(stats) %ciclo per ogni elemento
+        if j ~= index
+            for k=1:size(pixelList(j).PixelList)
+
+                result(pixelList(j).PixelList(k,2), pixelList(j).PixelList(k,1),1) = pixel;
+                result(pixelList(j).PixelList(k,2), pixelList(j).PixelList(k,1),2) = pixel;
+                result(pixelList(j).PixelList(k,2), pixelList(j).PixelList(k,1),3) = pixel;
+            end
+        end
+    end
+
+    figure, imshow(result);
+
+    %{
 for i=1:size(stats)
     
     result = imcrop(I, stats(i).BoundingBox);
@@ -39,13 +66,16 @@ result = imcrop(I, stats(1).BoundingBox);
     figure, imshow(result);
 
     pixelList = regionprops(BW2, 'PixelList');
-for j=1:size(pixelList(2).PixelList)
     
-    pixelList(2).PixelList(j,1); %coordinata x
-    pixelList(2).PixelList(j,2); %coordinata y
+for j=1:size(pixelList.PixelList)
     
-    result(pixelList(2).PixelList(j,2), pixelList(2).PixelList(j,1),1) = pixel;
-    result(pixelList(2).PixelList(j,2), pixelList(2).PixelList(j,1),2) = pixel;
-    result(pixelList(2).PixelList(j,2), pixelList(2).PixelList(j,1),3) = pixel;
+    pixelList.PixelList(j,1); %coordinata x
+    pixelList.PixelList(j,2); %coordinata y
+    
+    result(pixelList.PixelList(j,2), pixelList.PixelList(j,1),1) = pixel;
+    result(pixelList.PixelList(j,2), pixelList.PixelList(j,1),2) = pixel;
+    result(pixelList.PixelList(j,2), pixelList.PixelList(j,1),3) = pixel;
 end
     figure, imshow(result);
+%}
+

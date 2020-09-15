@@ -56,6 +56,6 @@ for l = 1:N
     newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae3';    %Nuova cartella di destinazione
     %imageName=strcat(num2str(l), imageName);
     fullFileName = fullfile(newImageFolder, imageName);             %Nuovo path completo di nome
-    imwrite(result, fullFileName);            %Immagine scritta nella nuova cartella
-    %figure, imshow(result);
+    %imwrite(result, fullFileName);            %Immagine scritta nella nuova cartella
+    figure, imshow(result);
 end
