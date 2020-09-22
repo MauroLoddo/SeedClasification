@@ -27,6 +27,10 @@
 % impostare parametri "al volo", come il numero di classi di un livello, la
 % mini batch size e così via.
 
+%% Initialization
+clear; 
+close all; 
+clc;
 
 %% Local paths / Server paths management
 if ismac
@@ -41,24 +45,19 @@ firstFamily = 'Apiaceae';
 secondFamily = 'Asteraceae';
 
 
-%% Initialization
-clear ; close all; clc
-
-
 %% =============== Part 1: Loading Data ================
 fprintf('Loading Data \n');
 
 % n is the number of types of images
-
 n = 2;
 
 im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','foldernames');
 % Resize the images to the input size of the net
-im.ReadFcn = @(loc)imresize(imread(loc),[227,227]);
-[Train ,Test] = splitEachLabel(im,0.9,'randomized');
+im.ReadFcn = @(loc)imresize(imread(loc),[227,227]); %function readFcn outputs the corrisponding image
+[Train, Validations, Test] = splitEachLabel(im,0.8,0.1); %appena aggiunto validations --------
 
-fprintf('Program paused. \nYou can press stop button manually on tranining plot(on top right corner besides number of iterations) once accuracy reaches upto desired level. Press enter to continue.\n');
-pause;
+%fprintf('Program paused. \nYou can press stop button manually on tranining plot(on top right corner besides number of iterations) once accuracy reaches upto desired level. Press enter to continue.\n');
+%pause;
 
 
 %% =============== Part 2: Training Data ================
@@ -70,16 +69,16 @@ cl = classificationLayer;
 ly(25) = cl; 
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
-learning_rate = 0.0001;
-opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,'MiniBatchSize',64,'Plots','training-progress');
-[newnet,info] = trainNetwork(Train, ly, opts);
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+learning_rate = 0.0001; %Più è basso più temo impiega e più è preciso
+opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,'MiniBatchSize',64,'Plots','training-progress', 'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
+[newnet,info] = trainNetwork(Train, ly, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
+%fprintf('Program paused. Press enter to continue.\n');
+%pause;
  
  
 %% =============== Part 3: Predicting accuracy for Test Set ================
 fprintf('Predicting accuracy for Test Set \n');
-[predict,scores] = classify(newnet,Test);
+[predict,scores] = classify(newnet,Test); %la funzione classify predice le etichette da assegnare alle determinate immagini, restituisce anche i punteggi di classificazione corrispondenti alle etichette di classe utilizzando una delle sintassi precedenti.
 names = Test.Labels;
 pred = (predict==names);
 s = size(pred);
@@ -87,8 +86,9 @@ acc = sum(pred)/s(1);
 fprintf('The accuracy of the test set is %f \n',acc*100);
 %fprintf('Program paused. Please enter the path of you image and Press enter to continue.\n');
 %pause;
-
-
+confusionMatrix = confusionchart(names, predict);
+confusionMatrix.ColumnSummary = 'column-normalized';
+confusionMatrix.RowSummary = 'row-normalized';
 %% =============== Part 4: Testing on your own Image ================
 % Please enter the path of you image below
 img = imread(fullfile(datasetpath, secondFamily, '1invasive_plants_seed_factsheet_ambrosia_artemisiifolia_01cnsh_1476383198542_eng.jpg'));
