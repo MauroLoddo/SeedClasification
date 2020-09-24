@@ -41,24 +41,25 @@ end
 
 
 %% Classes managements
-firstFamily = 'Apiaceae';
-secondFamily = 'Asteraceae';
+firstFamily = 'Amaranthaceae';
+secondFamily = 'Apiaceae';
+thirdFamily = 'Asteraceae';
+fourthFamily = 'Brassicaceae';
 
 
 %% =============== Part 1: Loading Data ================
 fprintf('Loading Data \n');
 
 % n is the number of types of images
-n = 2;
+n = 4;
 
 im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','foldernames');
 % Resize the images to the input size of the net
 im.ReadFcn = @(loc)imresize(imread(loc),[227,227]); %function readFcn outputs the corrisponding image
-[Train, Validations, Test] = splitEachLabel(im,0.8,0.1); %appena aggiunto validations --------
+[Train, Validations, Test] = splitEachLabel(im,0.8,0.1); 
 
 %fprintf('Program paused. \nYou can press stop button manually on tranining plot(on top right corner besides number of iterations) once accuracy reaches upto desired level. Press enter to continue.\n');
 %pause;
-
 
 %% =============== Part 2: Training Data ================
 fc = fullyConnectedLayer(n);
@@ -70,7 +71,7 @@ ly(25) = cl;
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
 learning_rate = 0.0001; %Più è basso più temo impiega e più è preciso
-opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,'MiniBatchSize',64,'Plots','training-progress', 'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
+opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,'MiniBatchSize',32,'Plots','training-progress', 'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
 [newnet,info] = trainNetwork(Train, ly, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
 %fprintf('Program paused. Press enter to continue.\n');
 %pause;
@@ -89,9 +90,10 @@ fprintf('The accuracy of the test set is %f \n',acc*100);
 confusionMatrix = confusionchart(names, predict);
 confusionMatrix.ColumnSummary = 'column-normalized';
 confusionMatrix.RowSummary = 'row-normalized';
+
 %% =============== Part 4: Testing on your own Image ================
 % Please enter the path of you image below
-img = imread(fullfile(datasetpath, secondFamily, '1invasive_plants_seed_factsheet_ambrosia_artemisiifolia_01cnsh_1476383198542_eng.jpg'));
+img = imread(fullfile(datasetpath, thirdFamily, '1invasive_plants_seed_factsheet_ambrosia_artemisiifolia_01cnsh_1476383198542_eng.jpg'));
 img = imresize(img,[227 227]);
 predict = classify(newnet,img);
 
