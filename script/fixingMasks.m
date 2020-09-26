@@ -4,9 +4,9 @@ clc;
 clear all;
 close all;
 
-files = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae2/*.jpg'); %totale delle immagini da analizzare
+files = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTSolanaceae2/*.jpg'); %totale delle immagini da analizzare
 N = length(files); %Numero immagini
-path = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae2/'; %path cartella
+path = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTSolanaceae2/'; %path cartella
 
 for l = 1:N
     imageName = files(l).name;          %nome dell'immagine
@@ -53,9 +53,9 @@ for l = 1:N
             end
         end
 
-    newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae3';    %Nuova cartella di destinazione
+    newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTSolanaceae3';    %Nuova cartella di destinazione
     %imageName=strcat(num2str(l), imageName);
     fullFileName = fullfile(newImageFolder, imageName);             %Nuovo path completo di nome
-    %imwrite(result, fullFileName);            %Immagine scritta nella nuova cartella
-    figure, imshow(result);
+    imwrite(result, fullFileName);            %Immagine scritta nella nuova cartella
+    %figure, imshow(result);
 end

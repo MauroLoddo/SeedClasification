@@ -2,12 +2,12 @@ clc;
 clear all;
 close all;
 
-filesRGB = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae2/*.jpg'); %totale delle immagini da analizzare
+filesRGB = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Solanaceae2/*.jpg'); %totale delle immagini da analizzare
 N = length(filesRGB); %Numero immagini
-pathRGB = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae2/'; %path cartella
+pathRGB = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Solanaceae2/'; %path cartella
 
-filesBinary = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae3/*.jpg'); %totale delle immagini da analizzare
-pathBinary = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTBrassicaceae3/'; %path cartella
+filesBinary = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTSolanaceae3/*.jpg'); %totale delle immagini da analizzare
+pathBinary = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTSolanaceae3/'; %path cartella
 
 for l = 1:N
 
@@ -55,7 +55,7 @@ for l = 1:N
     maskedImage = cat(3, R, G, B); %Ricreo l'immagine (la funzione cat concatena gli array)
 
     
-    newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Brassicaceae3';    %Nuova cartella di destinazione
+    newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Solanaceae3';    %Nuova cartella di destinazione
     fullFileName = fullfile(newImageFolder, imageNameRGB);             %Nuovo path completo di nome
     imwrite(maskedImage, fullFileName);            %Immagine scritta nella nuova cartella
     %figure, imshow(maskedImage);

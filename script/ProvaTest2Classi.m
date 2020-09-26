@@ -70,7 +70,7 @@ cl = classificationLayer;
 ly(25) = cl; 
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
-learning_rate = 0.0001; %Più è basso più temo impiega e più è preciso
+learning_rate = 0.0001; %Più è basso più tempo impiega e più è preciso
 opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,'MiniBatchSize',32,'Plots','training-progress', 'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
 [newnet,info] = trainNetwork(Train, ly, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
 %fprintf('Program paused. Press enter to continue.\n');
@@ -87,6 +87,9 @@ acc = sum(pred)/s(1);
 fprintf('The accuracy of the test set is %f \n',acc*100);
 %fprintf('Program paused. Please enter the path of you image and Press enter to continue.\n');
 %pause;
+
+%%[c,cm,ind,per] = confusion(targets,outputs);
+
 confusionMatrix = confusionchart(names, predict);
 confusionMatrix.ColumnSummary = 'column-normalized';
 confusionMatrix.RowSummary = 'row-normalized';
