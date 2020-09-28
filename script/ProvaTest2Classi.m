@@ -45,24 +45,94 @@ firstFamily = 'Amaranthaceae';
 secondFamily = 'Apiaceae';
 thirdFamily = 'Asteraceae';
 fourthFamily = 'Brassicaceae';
+fifthFamily = 'Plantaginaceae';
+sixthFamily = 'Solanaceae';
 
 
 %% =============== Part 1: Loading Data ================
 fprintf('Loading Data \n');
 
 % n is the number of types of images
-n = 4;
+nClass = 6;
 
 im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','foldernames');
 % Resize the images to the input size of the net
 im.ReadFcn = @(loc)imresize(imread(loc),[227,227]); %function readFcn outputs the corrisponding image
-[Train, Validations, Test] = splitEachLabel(im,0.8,0.1); 
+[Train, Test, Validations] = splitEachLabel(im,0.8,0.1,0.10,'randomized'); 
 
-%fprintf('Program paused. \nYou can press stop button manually on tranining plot(on top right corner besides number of iterations) once accuracy reaches upto desired level. Press enter to continue.\n');
-%pause;
+%Augmentation
+imageAugmenter = imageDataAugmenter('RandRotation',[-90,90],...
+    'RandXTranslation',[-20 20],'RandYTranslation',[-20 20],...
+    'RandXReflection',true,'RandYReflection',true);
 
+Train = augmentedImageDatastore([227 227], Train,'DataAugmentation',imageAugmenter);
+%Validations = augmentedImageDatastore([227 227], Validations);
+%Test = augmentedImageDatastore([227 227], Test);
+
+%Codice per estrarre una immagine casuale per ogni classe e mostrarle a
+%video
+for i=1:nClass    
+    switch i
+        case 1
+            d=strcat(datasetpath, '/');
+            d=strcat(d, firstFamily);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img1=imread(imName);
+        case 2
+            d=strcat(datasetpath, '/');
+            d=strcat(d, secondFamily);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img2=imread(imName);
+        case 3
+            d=strcat(datasetpath, '/');
+            d=strcat(d, thirdFamily);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img3=imread(imName);
+        case 4
+            d=strcat(datasetpath, '/');
+            d=strcat(d, fourthFamily);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img4=imread(imName);
+        case 5
+            d=strcat(datasetpath, '/');
+            d=strcat(d, fifthFamily);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img5=imread(imName);
+        case 6
+            d=strcat(datasetpath, '/');
+            d=strcat(d, sixthFamily);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img6=imread(imName);
+    end
+end  
+    multi = {img1,img2,img3,img4,img5,img6};
+    montage(multi);
 %% =============== Part 2: Training Data ================
-fc = fullyConnectedLayer(n);
+fc = fullyConnectedLayer(nClass);
 net = alexnet;
 ly = net.Layers;
 ly(23) = fc;
