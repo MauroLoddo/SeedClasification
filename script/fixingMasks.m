@@ -1,5 +1,4 @@
 %Ultimo passaggio per la creazione delle maschere
-
 clc;
 clear all;
 close all;
@@ -12,9 +11,7 @@ for l = 1:N
     imageName = files(l).name;          %nome dell'immagine
     string = strcat(path, imageName);   %path completo dell'immagine
     BW = imread(string);                 %immagine da analizzare
-    %figure, imshow(BW);
     
-    %BW = imread('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTAmaranthaceae2/72invasive_plants_seed_factsheet_amaranthus_retroflexus_04cnsh_1476382963209_eng.jpg');
     % elemento strutturante
     se = strel('disk', 1);
 
@@ -29,8 +26,6 @@ for l = 1:N
     % rettangolo con 4 valori
     stats = regionprops(BW2, 'All');
 
-
-    %-------------------------------------
     area = 0;
     index = 0;
     for i=1:size(stats)
@@ -40,13 +35,12 @@ for l = 1:N
         end
     end
 
-        result = imcrop(BW2, stats(index).BoundingBox);
-        %figure, imshow(result);
+        result = imcrop(BW2, stats(index).BoundingBox); %estraggo il bounding box del seme principale
         pixelList = regionprops(BW2, 'PixelList');
 
 
         for j=1:size(stats) %ciclo per ogni elemento
-            if j ~= index
+            if j ~= index   %Se la regione non è quella del seme principale viene riempita
                 for k=1:size(pixelList(j).PixelList)
                     result(pixelList(j).PixelList(k,2), pixelList(j).PixelList(k,1)) = 0;
                 end
@@ -54,8 +48,6 @@ for l = 1:N
         end
 
     newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTSolanaceae3';    %Nuova cartella di destinazione
-    %imageName=strcat(num2str(l), imageName);
     fullFileName = fullfile(newImageFolder, imageName);             %Nuovo path completo di nome
     imwrite(result, fullFileName);            %Immagine scritta nella nuova cartella
-    %figure, imshow(result);
 end

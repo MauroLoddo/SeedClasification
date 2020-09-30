@@ -1,31 +1,3 @@
-%% Consigli sparsi:
-% 1) non inserire path assoluti sparsi in giro per il codice ma usa un
-% punto unico di accesso al dataset, impostandoti una variabile iniziale
-% 2) dovremmo prevedere un modo per distinguere i path locali del tuo pc e
-% i path del server dove posso lanciare gli esperimenti. Lo inizio a
-% impostare qui. 
-% 3) non so dove abbia preso questo codice però lo scheletro c'è e va bene.
-% Potresti evitare l'interazione con l'utente, non ci servirà quando
-% lanceremo gli esperimenti grossi, per ora può andare bene per
-% interagirci.
-% 4) Come detto, il codice è predisposto bene ma è essenziale in questa
-% fase iniziale che tu capisca cosa stai andando a fare, quasi in ogni riga
-% di codice. Per farlo, il mio consiglio è quello di analizzarti bene a
-% fondo questo file che hai creato e segnalarmi qualsiasi cosa tu non
-% conosca o abbia capito.
-% 5) Una cosa importante da aggiungere sarà il validation set. Per ora ho
-% notato che usi solo train e test set ma ora che ci addentriamo negli
-% esperimenti devi lavorare usando lo split a 3: train, validation e test set.
-% 6) L'output che tipicamente vogliamo avere e salvare è l'accuratezza
-% della rete e la matrice di confusione generata dall'esperimento. Per ora
-% mi sta bene che lavori su singole immagini per capirci qualcosa in più 
-% ma quando verificheremo il funzionamento dell'intero modello, 
-% andremo a testare l'intero test set.
-% 7. Suggerimenti sparsi: so che sperimentare in questo modo può portare a
-% utilizzare magic numbers sparsi in giro ma il mio consiglio è: evitali
-% come la peste e rendi il codice leggibile, anche quando si tratta di
-% impostare parametri "al volo", come il numero di classi di un livello, la
-% mini batch size e così via.
 
 %% Initialization
 clear; 
@@ -133,11 +105,11 @@ end
     montage(multi);
 %% =============== Part 2: Training Data ================
 fc = fullyConnectedLayer(nClass);
-net = alexnet;
+net = resnet50;
 ly = net.Layers;
-ly(23) = fc;
+ly(175) = fc;
 cl = classificationLayer;
-ly(25) = cl; 
+ly(177) = cl; 
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
 learning_rate = 0.0001; %Più è basso più tempo impiega e più è preciso

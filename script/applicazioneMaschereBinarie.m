@@ -1,7 +1,6 @@
 clc;
 clear all;
 close all;
-
 filesRGB = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Solanaceae2/*.jpg'); %totale delle immagini da analizzare
 N = length(filesRGB); %Numero immagini
 pathRGB = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Solanaceae2/'; %path cartella
@@ -10,19 +9,14 @@ filesBinary = dir('/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canad
 pathBinary = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/GT Canadians families/GTSolanaceae3/'; %path cartella
 
 for l = 1:N
-
     imageNameRGB = filesRGB(l).name;          
     stringRGB = strcat(pathRGB, imageNameRGB);      %path completo dell'immagine
     RGB = imread(stringRGB);                        %immagine da analizzare
-
-    
-    
+  
     imageNameBinary = filesBinary(l).name;                  %nome dell'immagine
     stringBinary = strcat(pathBinary, imageNameBinary);     %path completo dell'immagine
     mask = imread(stringBinary);                            %immagine da analizzare
-
-
-    
+   
     [r,c, channels] = size(RGB);    %ricavo la dimensione dell'immagine per ridimensionare la maschera
     mask2 = imresize(mask, [r,c]);
 
@@ -44,7 +38,7 @@ for l = 1:N
         end
     end
 
-    %mi salvo i valori R G B
+    %Salvo i valori R G B
     R = RGB(:, :, 1); 
     G = RGB(:, :, 2); 
     B = RGB(:, :, 3);
@@ -53,10 +47,8 @@ for l = 1:N
     G(~mask2) = pixel;
     B(~mask2) = pixel;
     maskedImage = cat(3, R, G, B); %Ricreo l'immagine (la funzione cat concatena gli array)
-
-    
+ 
     newImageFolder = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Canadians families/Solanaceae3';    %Nuova cartella di destinazione
     fullFileName = fullfile(newImageFolder, imageNameRGB);             %Nuovo path completo di nome
     imwrite(maskedImage, fullFileName);            %Immagine scritta nella nuova cartella
-    %figure, imshow(maskedImage);
 end
