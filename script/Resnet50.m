@@ -29,17 +29,7 @@ nClass = 6;
 
 im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','foldernames');
 % Resize the images to the input size of the net
-im.ReadFcn = @(loc)imresize(imread(loc),[227,227]); %function readFcn outputs the corrisponding image
-[Train, Test, Validations] = splitEachLabel(im,0.8,0.1,0.10,'randomized'); 
-
-%Augmentation
-imageAugmenter = imageDataAugmenter('RandRotation',[-90,90],...
-    'RandXTranslation',[-20 20],'RandYTranslation',[-20 20],...
-    'RandXReflection',true,'RandYReflection',true);
-
-Train = augmentedImageDatastore([227 227], Train,'DataAugmentation',imageAugmenter);
-Validations = augmentedImageDatastore([227 227], Validations, 'DataAugmentation',imageAugmenter);
-%Test = augmentedImageDatastore([227 227], Test);
+im.ReadFcn = @(loc)imresize(imread(loc),[224,224]); %function readFcn outputs the corrisponding image
 
 %Codice per estrarre una immagine casuale per ogni classe e mostrarle a
 %video
@@ -104,16 +94,48 @@ end
     multi = {img1,img2,img3,img4,img5,img6};
     montage(multi);
 %% =============== Part 2: Training Data ================
-fc = fullyConnectedLayer(nClass);
-net = resnet50;
+
+net = resnet50();
+figure, plot(net);
+set(gca, 'YLim', [150 170]);
+
+[Train, Test, Validations] = splitEachLabel(im,0.8,0.1,0.10,'randomized'); 
+
+%Augmentation
+imageAugmenter = imageDataAugmenter('RandRotation',[-90,90],...
+    'RandXTranslation',[-20 20],'RandYTranslation',[-20 20],...
+    'RandXReflection',true,'RandYReflection',true);
+
+Train = augmentedImageDatastore([224 224], Train,'DataAugmentation',imageAugmenter);
+Validations = augmentedImageDatastore([224 224], Validations, 'DataAugmentation',imageAugmenter);
+
+
 ly = net.Layers;
-ly(175) = fc;
-cl = classificationLayer;
-ly(177) = cl; 
+lgraph = layerGraph(net);
+[learnableLayer,classLayer] = findLayersToReplace(lgraph);
+
+fc = fullyConnectedLayer(nClass, 'Name','fullyConnected');
+cl = classificationLayer('Name','output');
+lgraph = replaceLayer(lgraph,'fc1000',fc);
+lgraph = replaceLayer(lgraph,'ClassificationLayer_fc1000',cl);
+
+%fc = fullyConnectedLayer(nClass);
+%ly(175) = fc;
+%cl = classificationLayer;
+%ly(177) = cl; 
+
+%lgraph = layerGraph(ly);
+%figure('Units','normalized','Position',[0.2 0.2 0.6 0.6]);
+%plot(lgraph);
+
+
+
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
 learning_rate = 0.0001; %Più è basso più tempo impiega e più è preciso
-opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,'MiniBatchSize',64,'Plots','training-progress', 'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
+opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,...
+    'MiniBatchSize',64,'Plots','training-progress',...
+    'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
 [newnet,info] = trainNetwork(Train, ly, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
 
 %% =============== Part 3: Predicting accuracy for Test Set ================
