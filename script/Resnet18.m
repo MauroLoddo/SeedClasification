@@ -95,9 +95,7 @@ end
     montage(multi);
 %% =============== Part 2: Training Data ================
 
-net = resnet50();
-figure, plot(net);
-set(gca, 'YLim', [150 170]);
+net = resnet18();
 
 [Train, Test, Validations] = splitEachLabel(im,0.8,0.1,0.10,'randomized'); 
 
@@ -112,12 +110,12 @@ Validations = augmentedImageDatastore([224 224], Validations, 'DataAugmentation'
 
 ly = net.Layers;
 lgraph = layerGraph(net);
-%[learnableLayer,classLayer] = findLayersToReplace(lgraph);
+[learnableLayer,classLayer] = findLayersToReplace(lgraph);
 
 fc = fullyConnectedLayer(nClass, 'Name','fullyConnected');
 cl = classificationLayer('Name','output');
 lgraph = replaceLayer(lgraph,'fc1000',fc);
-lgraph = replaceLayer(lgraph,'ClassificationLayer_fc1000',cl);
+lgraph = replaceLayer(lgraph,'ClassificationLayer_predictions',cl);
 
 
 % options for training the net if your newnet performance is low decrease
