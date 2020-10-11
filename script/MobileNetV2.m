@@ -95,7 +95,7 @@ end
     montage(multi);
 %% =============== Part 2: Training Data ================
 
-net = mobilenetv2('Weights','none');
+net = mobilenetv2();
 
 [Train, Test, Validations] = splitEachLabel(im,0.8,0.1,0.10,'randomized'); 
 %Augmentation
@@ -106,23 +106,23 @@ imageAugmenter = imageDataAugmenter('RandRotation',[-90,90],...
 Train = augmentedImageDatastore([224 224], Train,'DataAugmentation',imageAugmenter);
 Validations = augmentedImageDatastore([224 224], Validations, 'DataAugmentation',imageAugmenter);
 
-%ly = net.Layers;
-%lgraph = layerGraph(ly);
-[learnableLayer,classLayer] = findLayersToReplace(net);
+ly = net.Layers;
+lgraph = layerGraph(net);
+[learnableLayer,classLayer] = findLayersToReplace(lgraph);
 
 fc = fullyConnectedLayer(nClass, 'Name','fullyConnected');
 cl = classificationLayer('Name','output');
-net = replaceLayer(net,'Logits',fc);
-net = replaceLayer(net,'ClassificationLayer_Logits',cl);
+lgraph = replaceLayer(lgraph,'Logits',fc);
+lgraph = replaceLayer(lgraph,'ClassificationLayer_Logits',cl);
 
 
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
 learning_rate = 0.0001; %Più è basso più tempo impiega e più è preciso
-opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',120,...
-    'MiniBatchSize',16,'Plots','training-progress',...
+opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',40,...
+    'MiniBatchSize',64,'Plots','training-progress',...
     'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
-[newnet,info] = trainNetwork(Train, net, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
+[newnet,info] = trainNetwork(Train, lgraph, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
 
 %% =============== Part 3: Predicting accuracy for Test Set ================
 fprintf('Predicting accuracy for Test Set \n');

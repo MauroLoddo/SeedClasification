@@ -141,7 +141,9 @@ ly(25) = cl;
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
 learning_rate = 0.0001; %Più è basso più tempo impiega e più è preciso
-opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',20,'MiniBatchSize',64,'Plots','training-progress', 'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
+opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',120,...
+    'MiniBatchSize',64,'Plots','training-progress',...
+    'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
 [newnet,info] = trainNetwork(Train, ly, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
 
 %% =============== Part 3: Predicting accuracy for Test Set ================
