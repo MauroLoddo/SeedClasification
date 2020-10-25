@@ -6,26 +6,44 @@ clc;
 
 %% Local paths / Server paths management
 if ismac
-    datasetpath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/Tests';
+    datasetpath = '/Users/mauroloddo/Documents/MATLAB/SeedClasification/TestsCagliari';
 else %TODO
     datasetpath = '/home/server/TODO';
 end
 
 
 %% Classes managements
-firstFamily = 'Amaranthaceae';
-secondFamily = 'Apiaceae';
-thirdFamily = 'Asteraceae';
-fourthFamily = 'Brassicaceae';
-fifthFamily = 'Plantaginaceae';
-sixthFamily = 'Solanaceae';
+family1 = 'Amorpha fruticosa';
+family2 = 'Anagyris foetida';
+family3 = 'Anthyllis barba-jovis';
+family4 = 'Anthyllis cytisoides';
+family5 = 'Astragalus glycyphyllos';
+family6 = 'Calicotome villosa';
+family7 = 'Caragana arborescens';
+family8 = 'Ceratonia siliqua';
+family9 = 'Colutea arborescens';
+family10 = 'Cytisus purgans';
+family11 = 'Cytisus scoparius';
+family12 = 'Dorycnium pentaphyllum';
+family13 = 'Dorycnium rectum';
+family14 = 'Hedysarum coronarium';
+family15 = 'Lathyrus aphaca';
+family16 = 'Lathyrus ochrus';
+family17 = 'Medicago sativa';
+family18 = 'Melilotus officinalis';
+family19 = 'Pisum sativum subsp. elatius';
+family20 = 'Senna alexandrina';
+family21 = 'Spartium junceum';
+family22 = 'Trifolium angustifolium';
+family23 = 'Vicia faba';
+
 
 
 %% =============== Part 1: Loading Data ================
 fprintf('Loading Data \n');
 
 % n is the number of types of images
-nClass = 6;
+nClass = 23;
 
 im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','foldernames');
 % Resize the images to the input size of the net
@@ -37,7 +55,7 @@ for i=1:nClass
     switch i
         case 1
             d=strcat(datasetpath, '/');
-            d=strcat(d, firstFamily);  
+            d=strcat(d, family1);  
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -46,7 +64,7 @@ for i=1:nClass
             img1=imread(imName);
         case 2
             d=strcat(datasetpath, '/');
-            d=strcat(d, secondFamily);  
+            d=strcat(d, family2);  
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -55,7 +73,7 @@ for i=1:nClass
             img2=imread(imName);
         case 3
             d=strcat(datasetpath, '/');
-            d=strcat(d, thirdFamily);  
+            d=strcat(d, family3);  
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -64,7 +82,7 @@ for i=1:nClass
             img3=imread(imName);
         case 4
             d=strcat(datasetpath, '/');
-            d=strcat(d, fourthFamily);  
+            d=strcat(d, family4);  
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -73,7 +91,7 @@ for i=1:nClass
             img4=imread(imName);
         case 5
             d=strcat(datasetpath, '/');
-            d=strcat(d, fifthFamily);  
+            d=strcat(d, family5);  
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -82,17 +100,171 @@ for i=1:nClass
             img5=imread(imName);
         case 6
             d=strcat(datasetpath, '/');
-            d=strcat(d, sixthFamily);  
+            d=strcat(d, family6);  
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
             imName= strcat(d, '/');
             imName= strcat(imName, f(idx).name);
             img6=imread(imName);
+        case 7
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family7);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img7=imread(imName);
+         case 8
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family8);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img8=imread(imName);
+         case 9
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family9);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img9=imread(imName);
+         case 10
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family10);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img10=imread(imName);
+         case 11
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family11);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img11=imread(imName);
+         case 12
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family12);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img12=imread(imName);
+         case 13
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family13);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img13=imread(imName);
+         case 14
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family14);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img14=imread(imName);
+         case 15
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family15);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img15=imread(imName);
+         case 16
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family16);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img16=imread(imName);
+         case 17
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family17);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img17=imread(imName);
+         case 18
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family18);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img18=imread(imName);
+         case 19
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family19);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img19=imread(imName);
+         case 20
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family20);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img20=imread(imName);
+         case 21
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family21);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img21=imread(imName);
+         case 22
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family22);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img22=imread(imName);
+         case 23
+            d=strcat(datasetpath, '/');
+            d=strcat(d, family23);  
+            f=dir([d '/*.jpg']);
+            n=length(f);
+            idx=randi(n);
+            imName= strcat(d, '/');
+            imName= strcat(imName, f(idx).name);
+            img23=imread(imName);
     end
 end  
-    multi = {img1,img2,img3,img4,img5,img6};
+    multi = {img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,img13,img14,img15,img16,img17,img18,img19,img20,img21,img22,img23};
     montage(multi);
+
 %% =============== Part 2: Training Data ================
 
 net = shufflenet;
@@ -119,8 +291,8 @@ lgraph = replaceLayer(lgraph,'ClassificationLayer_node_203',cl);
 % options for training the net if your newnet performance is low decrease
 % the learning_rate
 learning_rate = 0.0001; %Più è basso più tempo impiega e più è preciso
-opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',100,...
-    'MiniBatchSize',16,'Plots','training-progress',...
+opts = trainingOptions("adam","InitialLearnRate",learning_rate,'MaxEpochs',50,...
+    'MiniBatchSize',64,'Plots','training-progress',...
     'ValidationData', Validations, 'ValidationFrequency', 5); %adam è il tipo di optimizer utilizzato/le epoche sono il passaggio completo dell'algoritmo di addestramento sull'intero set/mini-batch è un sottoinsieme del set di addestramento utilizzato per valutare il gradiente della funzione di perdita/minore è il valore della validation frequency, più spesso verrà validata la rete
 [newnet,info] = trainNetwork(Train, lgraph, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
 
