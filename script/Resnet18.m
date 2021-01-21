@@ -31,6 +31,7 @@ im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','folderna
 % Resize the images to the input size of the net
 im.ReadFcn = @(loc)imresize(imread(loc),[224,224]); %function readFcn outputs the corrisponding image
 
+position = [1 1];
 %Codice per estrarre una immagine casuale per ogni classe e mostrarle a
 %video
 for i=1:nClass    
@@ -44,6 +45,7 @@ for i=1:nClass
             imName= strcat(d, '/');
             imName= strcat(imName, f(idx).name);
             img1=imread(imName);
+            img1=insertText(img1, position, firstFamily,'FontSize',18,'BoxColor', 'white', 'TextColor', 'black', 'BoxOpacity', 0.8);
         case 2
             d=strcat(datasetpath, '/');
             d=strcat(d, secondFamily);  
@@ -53,6 +55,8 @@ for i=1:nClass
             imName= strcat(d, '/');
             imName= strcat(imName, f(idx).name);
             img2=imread(imName);
+            img2=insertText(img2, position, secondFamily,'FontSize',25,'BoxColor', 'white', 'TextColor', 'black','BoxOpacity', 0.8);
+
         case 3
             d=strcat(datasetpath, '/');
             d=strcat(d, thirdFamily);  
@@ -62,6 +66,8 @@ for i=1:nClass
             imName= strcat(d, '/');
             imName= strcat(imName, f(idx).name);
             img3=imread(imName);
+            img3=insertText(img3, position, thirdFamily,'FontSize',22,'BoxColor', 'white', 'TextColor', 'black','BoxOpacity', 0.8);
+
         case 4
             d=strcat(datasetpath, '/');
             d=strcat(d, fourthFamily);  
@@ -71,6 +77,7 @@ for i=1:nClass
             imName= strcat(d, '/');
             imName= strcat(imName, f(idx).name);
             img4=imread(imName);
+            img4=insertText(img4, position, fourthFamily,'FontSize',23,'BoxColor', 'white', 'TextColor', 'black','BoxOpacity', 0.8);
         case 5
             d=strcat(datasetpath, '/');
             d=strcat(d, fifthFamily);  
@@ -80,6 +87,7 @@ for i=1:nClass
             imName= strcat(d, '/');
             imName= strcat(imName, f(idx).name);
             img5=imread(imName);
+            img5=insertText(img5, position, fifthFamily,'FontSize',20,'BoxColor', 'white', 'TextColor', 'black','BoxOpacity', 0.8);
         case 6
             d=strcat(datasetpath, '/');
             d=strcat(d, sixthFamily);  
@@ -89,10 +97,11 @@ for i=1:nClass
             imName= strcat(d, '/');
             imName= strcat(imName, f(idx).name);
             img6=imread(imName);
+            img6=insertText(img6, position, sixthFamily,'FontSize',18,'BoxColor', 'white', 'TextColor', 'black','BoxOpacity', 0.8);
     end
 end  
     multi = {img1,img2,img3,img4,img5,img6};
-    montage(multi);
+    montage(multi, 'BackgroundColor', 'white');
 %% =============== Part 2: Training Data ================
 
 net = resnet18();

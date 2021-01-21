@@ -249,7 +249,7 @@ for i=1:nClass
             n=length(f);
             idx=randi(n);
             imName= strcat(d, '/');
-            imName= strcat(imName, f(idx).name);
+            imName= strcat(imName, '461_103.jpg');%f(idx).name);
             img22=imread(imName);
          case 23
             d=strcat(datasetpath, '/');
@@ -263,7 +263,7 @@ for i=1:nClass
     end
 end  
     multi = {img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,img13,img14,img15,img16,img17,img18,img19,img20,img21,img22,img23};
-    montage(multi);
+    montage(multi,'BackgroundColor', 'white');
 
 
 %% =============== Part 2: Training Data ================

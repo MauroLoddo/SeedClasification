@@ -92,7 +92,7 @@ for i=1:nClass
     end
 end  
     multi = {img1,img2,img3,img4,img5,img6};
-    montage(multi);
+    montage(multi, 'BackgroundColor', 'white');
 %% =============== Part 2: Training Data ================
 
 net = squeezenet();
