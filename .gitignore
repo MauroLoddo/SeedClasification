@@ -51,3 +51,10 @@ scripts/models/canada/resnet101100ep_64mbs.mat
 scripts/models/canada/resnet18100ep_64mbs.mat
 scripts/models/canada/resnet50100ep_64mbs.mat
 scripts/models/canada/vgg16_100ep_16mbs.mat
+scripts/models/cagliari/alexnet_100ep_16mbs.mat
+scripts/models/cagliari/googlenet_model.mat
+scripts/models/cagliari/mobilenetv2_model.mat
+scripts/models/cagliari/resnet101_100ep_64mbs.mat
+scripts/models/cagliari/resnet18_100ep_64mbs.mat
+scripts/models/cagliari/resnet50_model.mat
+scripts/models/cagliari/vgg16_100ep_16mbs.mat
