@@ -1,6 +1,6 @@
 %% Initialization
-clear; 
-close all; 
+clear;
+close all;
 clc;
 
 addpath(genpath('/home/server/MATLAB/topics/SeedsClassification/SeedClasification'));
@@ -28,24 +28,14 @@ nClass = 6;
 im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','foldernames');
 % Resize the images to the input size of the net
 im.ReadFcn = @(loc)imresize(imread(loc),[224,224]); %function readFcn outputs the corrisponding image
-[Train, Test, Validations] = splitEachLabel(im,0.8,0.1,0.10,'randomized'); 
-
-%Augmentation
-imageAugmenter = imageDataAugmenter('RandRotation',[-90,90],...
-    'RandXTranslation',[-20 20],'RandYTranslation',[-20 20],...
-    'RandXReflection',true,'RandYReflection',true);
-
-Train = augmentedImageDatastore([227 227], Train,'DataAugmentation',imageAugmenter);
-Validations = augmentedImageDatastore([227 227], Validations, 'DataAugmentation',imageAugmenter);
-
 
 %Codice per estrarre una immagine casuale per ogni classe e mostrarle a
 %video
-for i=1:nClass    
+for i=1:nClass
     switch i
         case 1
             d=strcat(datasetpath, '/');
-            d=strcat(d, firstFamily);  
+            d=strcat(d, firstFamily);
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -54,7 +44,7 @@ for i=1:nClass
             img1=imread(imName);
         case 2
             d=strcat(datasetpath, '/');
-            d=strcat(d, secondFamily);  
+            d=strcat(d, secondFamily);
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -63,7 +53,7 @@ for i=1:nClass
             img2=imread(imName);
         case 3
             d=strcat(datasetpath, '/');
-            d=strcat(d, thirdFamily);  
+            d=strcat(d, thirdFamily);
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -72,7 +62,7 @@ for i=1:nClass
             img3=imread(imName);
         case 4
             d=strcat(datasetpath, '/');
-            d=strcat(d, fourthFamily);  
+            d=strcat(d, fourthFamily);
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -81,7 +71,7 @@ for i=1:nClass
             img4=imread(imName);
         case 5
             d=strcat(datasetpath, '/');
-            d=strcat(d, fifthFamily);  
+            d=strcat(d, fifthFamily);
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -90,7 +80,7 @@ for i=1:nClass
             img5=imread(imName);
         case 6
             d=strcat(datasetpath, '/');
-            d=strcat(d, sixthFamily);  
+            d=strcat(d, sixthFamily);
             f=dir([d '/*.jpg']);
             n=length(f);
             idx=randi(n);
@@ -98,14 +88,14 @@ for i=1:nClass
             imName= strcat(imName, f(idx).name);
             img6=imread(imName);
     end
-end  
+end
 
-    
+
 %% =============== Part 2: Training Data ================
 
 net = shufflenet;
 
-[Train, Test, Validations] = splitEachLabel(im,0.8,0.1,0.10,'randomized');
+[Train, Test, Validations] = splitEachLabel(im,0.5,0.4,0.1,'randomized');
 %Augmentation
 imageAugmenter = imageDataAugmenter('RandRotation',[-90,90],...
     'RandXTranslation',[-20 20],'RandYTranslation',[-20 20],...
@@ -134,14 +124,14 @@ opts = trainingOptions( "adam",...
                         'MiniBatchSize',mbs,...
                         'Plots','training-progress',...
                         'ValidationData', Validations,...
-                        'ValidationFrequency', 5); 
-                    
+                        'ValidationFrequency', 5);
+
 [newnet,info] = trainNetwork(Train, lgraph, opts); % addestra la rete prendendo in input: immagini(quelle scelte per il training), i layers e le opzioni; viene restituita la rete e le informazioni
 
 
 %% =============== Part 3: Predicting accuracy for Test Set ================
 fprintf('Predicting accuracy for Test Set \n');
-[predict,scores] = classify(newnet,Test); %la funzione classify predice le etichette da assegnare alle determinate immagini, restituisce anche i punteggi di classificazione corrispondenti alle etichette di classe utilizzando una delle sintassi precedenti.
+[predict,scores] = classify(newnet,Test); 
 names = Test.Labels;
 pred = (predict==names);
 s = size(pred);

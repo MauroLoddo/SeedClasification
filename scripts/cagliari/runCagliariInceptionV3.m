@@ -46,7 +46,7 @@ nClass = 23;
 
 im = imageDatastore(datasetpath,'IncludeSubfolders',true,'LabelSource','foldernames');
 % Resize the images to the input size of the net
-im.ReadFcn = @(loc)imresize(imread(loc),[224,224]); %function readFcn outputs the corrisponding image
+im.ReadFcn = @(loc)imresize(imread(loc),[299,299]); %function readFcn outputs the corrisponding image
 
 %Codice per estrarre una immagine casuale per ogni classe e mostrarle a
 %video
