@@ -4,7 +4,7 @@ modelPathCanada = '../models/canada';
 
 % Test Canada
 disp('Canada');
-models = dir(fullfile(modelPathCanada, '*.mat'));
+models = dir(fullfile(modelPathCanada, '*_cm.mat'));
 
 for i = 1:numel(models)
     
@@ -18,7 +18,7 @@ disp('Cagliari');
 models = dir(fullfile(modelPathCagliari, '*.mat'));
 
 for i = 1:numel(models)
-    
+   
     modelpath = fullfile(modelPathCagliari, models(i).name);
     sprintf('%s; MAvG = %f; MFM = %f; MAvA = %f', models(i).name, MAvG(modelpath), MFM(modelpath), MAvA(modelpath))
 
