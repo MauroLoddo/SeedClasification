@@ -1,0 +1,1 @@
+nohup matlab -nodisplay -nosplash -nodesktop -batch run_resnet50 > nohup/resnet50.out < /dev/null &
