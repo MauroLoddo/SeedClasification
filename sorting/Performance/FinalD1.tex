@@ -1,0 +1,44 @@
+\documentclass[12pt,italian]{article}
+\usepackage{graphicx}
+\usepackage{longtable}
+\parskip 0.1in
+\oddsidemargin -1in
+\evensidemargin -1in
+\topmargin -0.5in
+\textwidth 6.8in
+\textheight 9.9in
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\begin{document}
+% \usepackage{booktabs}
+
+
+\begin{table}
+	\centering
+	\caption{Retrieval results using CNNs descriptors with D1 distance.}
+	\label{tab:retrievalD1}
+	\begin{tabular}{lcccccc}
+		\toprule
+		Descriptor      &     \multicolumn{6}{c}{Windows size = 100, sim = D1}     \\
+		                & \multicolumn{3}{c}{Canada} & \multicolumn{3}{c}{Cagliari} \\
+		                &  AP  &  AR  &     mAP      &  AP  &  AR  &      mAP       \\ \midrule
+		Alexnet         & 16.2 & 40.2 &     25.1     & 31.4 & 22.3 &      27.7      \\
+		VGG16           & 16.6 & 42.4 &     29.7     & 27.5 & 22.4 &      24.3      \\
+		VGG19           & 15.0 & 37.5 &     25.4     & 23.8 & 20.9 &      21.2      \\
+		Resnet18        & 17.3 & 42.4 &     26.0     & 22.7 & 20.1 &      21.1      \\
+		Resnet50        & 14.5 & 37.0 &     23.2     & 29.0 & 24.2 &      26.7      \\
+		Resnet101       & 15.5 & 37.6 &     23.6     & 27.9 & 23.2 &      25.9      \\
+		Googlenet       & 14.6 & 36.3 &     21.7     & 25.7 & 22.8 &      23.2      \\
+		Shufflenet      & 15.9 & 38.0 &     24.9     & 30.7 & 20.4 &      24.5      \\
+		Squeezenet      & 16.8 & 43.4 &     31.2     & 29.7 & 28.9 &      33.5      \\
+		Mobilenetv2     & 16.0 & 39.7 &     24.3     & 25.8 & 19.7 &      20.5      \\
+		Inceptionv3     & 15.8 & 39.8 &     24.2     & 23.9 & 18.4 &      18.7      \\
+		SeednetCanada   & 17.8 & 43.6 &     30.8     & 27.3 & 19.7 &      23.7      \\
+		SeedNetCagliari & 17.6 & 41.3 &     23.2     & 37.6 & 27.8 &      35.2      \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+ \pagebreak 
+\end{document}

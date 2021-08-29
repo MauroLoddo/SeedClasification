@@ -1,0 +1,34 @@
+\documentclass[12pt,italian]{article}
+\usepackage{graphicx}
+\usepackage{longtable}
+\parskip 0.1in
+\oddsidemargin -1in
+\evensidemargin -1in
+\topmargin -0.5in
+\textwidth 6.8in
+\textheight 9.9in
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\begin{document}
+% \usepackage{booktabs}
+
+
+\begin{table}
+	\centering
+	\caption{Results using classic descriptors and classifiers on Canadian dataset.}
+	\label{tab:classicClassificationCanada}
+	\begin{tabular}{lcccccc}
+		\toprule
+		Classifier    &  Acc  & Spec  &  Sen  & MAvG  &  MFM  & MAvA  \\ \midrule
+		kNN           & 94.88 & 93.45 & 90.65 & 93.34 & 91.64 & 93.45 \\
+		Naive Bayes   & 91.63 & 90.87 & 89.88 & 90.77 & 90.32 & 90.87 \\
+		Random Forest & 93.02 & 91.38 & 88.18 & 91.25 & 89.34 & 91.38 \\
+		SVM           & 94.88 & 94.75 & 91.06 & 94.61 & 92.44 & 94.75 \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+
+
+\end{document}

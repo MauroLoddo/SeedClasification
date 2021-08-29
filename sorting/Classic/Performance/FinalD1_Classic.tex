@@ -1,0 +1,32 @@
+\documentclass[12pt,italian]{article}
+\usepackage{graphicx}
+\usepackage{longtable}
+\parskip 0.1in
+\oddsidemargin -1in
+\evensidemargin -1in
+\topmargin -0.5in
+\textwidth 6.8in
+\textheight 9.9in
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\begin{document}
+% \usepackage{booktabs}
+
+
+\begin{table}
+	\centering
+	\caption{Retrieval results using classic descriptors with D1 distance.}
+	\label{tab:retrievalD1}
+	\begin{tabular}{lcccccc}
+		\toprule
+		Descriptor &     \multicolumn{6}{c}{Windows size = 100, sim = D1}      \\
+		           & \multicolumn{3}{c}{Canada} & \multicolumn{3}{c}{Cagliari} \\
+		           &  AP  &  AR  &     mAP      &  AP  &  AR  &      mAP       \\ \midrule
+		Classic    & 23.5 & 54.8 &     41.6     & 20.4 & 14.7 &      16.2      \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+ \pagebreak 
+\end{document}

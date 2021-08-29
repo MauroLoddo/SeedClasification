@@ -1,0 +1,35 @@
+\documentclass[12pt,italian]{article}
+\usepackage{graphicx}
+\usepackage{longtable}
+\parskip 0.1in
+\oddsidemargin -1in
+\evensidemargin -1in
+\topmargin -0.5in
+\textwidth 6.8in
+\textheight 9.9in
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\begin{document}
+% \usepackage{booktabs}
+
+
+\begin{table}
+	\centering
+	\caption{Results using classic descriptors and classifiers on local dataset.}
+	\label{tab:classicClassificationCagliari}
+	\begin{tabular}{lcccccc}
+		\toprule
+		Classifier    &  Acc  & Spec  &  Sen  & MAvG  &  MFM  & MAvA  \\ \midrule
+		kNN           & 71.93 & 68.69 & 68.08 & 63.97 & 66.31 & 68.69 \\
+		Naive Bayes   & 85.51 & 83.05 & 84.31 & 81.20 & 83.33 & 83.05 \\
+		Random Forest & 93.86 & 93.12 & 90.03 & 92.84 & 91.18 & 93.12 \\
+		SVM           & 90.14 & 88.52 & 85.77 & 87.90 & 86.62 & 88.52 \\ \bottomrule
+	\end{tabular}
+\end{table}
+
+\pagebreak 
+
+
+\end{document}

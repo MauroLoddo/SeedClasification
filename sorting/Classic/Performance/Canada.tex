@@ -1,0 +1,42 @@
+\documentclass[12pt,italian]{article}
+\usepackage{graphicx}
+\usepackage{longtable}
+\parskip 0.1in
+\oddsidemargin -1in
+\evensidemargin -1in
+\topmargin -0.5in
+\textwidth 6.8in
+\textheight 9.9in
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\begin{document}
+\small
+\begin{longtable}{lcccccccccccccccc}
+\toprule
+\multicolumn{16}{c}{Dataset=Canada prepro= none postpro= none, gl= 256 sim= euclidean} \\ 
+\toprule
+Descriptor & \multicolumn{15}{c}{Windos size} \\ 
+& \multicolumn{3}{c}{1} & \multicolumn{3}{c}{10} & \multicolumn{3}{c}{20} & \multicolumn{3}{c}{50} & \multicolumn{3}{c}{100} \\ 
+& AP & AR & mAP & AP & AR & mAP & AP & AR & mAP & AP & AR & mAP & AP & AR & mAP \\ 
+\midrule
+classic & 55.0 &  1.7 & 47.4 & 57.0 & 14.9 & 53.2 & 48.9 & 24.5 & 46.7 & 38.2 & 49.5 & 45.8 & 22.3 & 55.6 & 45.7 \\ 
+\bottomrule
+\end{longtable} 
+
+ \pagebreak 
+\begin{longtable}{lcccccccccccccccc}
+\toprule
+\multicolumn{16}{c}{Dataset=Canada prepro= none postpro= none, gl= 256 sim= D1} \\ 
+\toprule
+Descriptor & \multicolumn{15}{c}{Windos size} \\ 
+& \multicolumn{3}{c}{1} & \multicolumn{3}{c}{10} & \multicolumn{3}{c}{20} & \multicolumn{3}{c}{50} & \multicolumn{3}{c}{100} \\ 
+& AP & AR & mAP & AP & AR & mAP & AP & AR & mAP & AP & AR & mAP & AP & AR & mAP \\ 
+\midrule
+classic & 62.0 &  1.9 & 50.1 & 58.8 & 14.6 & 53.5 & 49.4 & 24.2 & 47.3 & 37.3 & 44.5 & 44.6 & 23.5 & 54.8 & 41.6 \\ 
+\bottomrule
+\end{longtable} 
+
+ \pagebreak 
+\end{document}
