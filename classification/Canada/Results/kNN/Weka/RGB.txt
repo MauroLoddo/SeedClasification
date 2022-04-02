@@ -1,0 +1,6 @@
+3  0  0  4  1  2 |  a = Amaranthacea
+0 48  8  0  0  0 |  b = Apiaceae
+0  4 45  0  0  0 |  c = Asteraceae
+4  0  0 27  0  3 |  d = Brassicaceae
+0  0  0  1 42  0 |  e = Plantaginaceae
+0  0  0  3  0 20 |  f = Solanaceae

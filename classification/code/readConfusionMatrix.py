@@ -33,8 +33,7 @@ def convertWeka2MatConfusionMatrix(inputFilename, outputFilename):
     
 classifiers = ['Bayes', 'kNN', 'SVM', 'RF']
 
-#mainFolder = 'C:\\Users\\loand\\Documents\\GitHub\\Tesisti\\SeedClasification\\classification\\Cagliari\\Results\\'
-mainFolder = 'C:\\Users\\loand\\Documents\\GitHub\\Tesisti\\SeedClasification\\classification\\Cagliari\\Results\\Test'
+mainFolder = 'C:\\Users\\loand\\Documents\\GitHub\\Tesisti\\SeedClasification\\classification\\Canada\\Results\\'
 CM = 'CM'
 Weka = 'Weka'
 
